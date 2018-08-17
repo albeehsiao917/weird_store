@@ -37,17 +37,12 @@
 				      background-position: center"
 				    	:style='{"backgroundImage": `url(${item.imageUrl})`}'
 				    	class="thumbnail">
-						  	<!-- <a href="#" class="cover">
-						  		<div class="cover-btn">more</div>
-						  	</a> -->
-
 						  	<router-link class="cover" :to="`/product/${item.id}`">
 		          			<div class="cover-btn">See More</div>
 		          	</router-link>
 						</div>
 
 				    <div class="card-body item">
-				      <!-- <div class="item-title text-dark">{{ item.title}}</div> -->
 				      <router-link class="text-dark item-title" :to="`/product/${item.id}`">
 	            	{{ item.title }}
 	            </router-link>
@@ -60,23 +55,11 @@
 				    </div>
 
 				    <div class="card-footer d-flex">
-				      <!-- <button type="button" class="btn btn-outline-secondary"> -->
-				      	<!-- @click='getProduct(item.id)' -->
-				        <!-- <i class="fas fa-spinner fa-spin" v-if="item.id === status.loadingItem"></i> -->
-				        <!-- 查看更多 -->
-				      <!-- </button> -->
-
 				      <router-link class="btn btn-outline-secondary" 
 				        :to="`/product/${item.id}`">
 				      	查看更多
 				      </router-link>
-
-				      <!-- <router-link to="/coupon">優惠券</router-link> -->
-
-				      <!-- <router-view></router-view> -->
-
-				      <button type="button" class="btn btn-outline-danger ml-auto"
-				        >
+				      <button type="button" class="btn btn-outline-danger ml-auto">
 				        <!-- @click="addToCart(item.id)" -->
 				        <!-- <i class="fas fa-spinner fa-spin" v-if="item.id === status.loadingItem"></i> -->
 				        加到購物車
@@ -87,7 +70,6 @@
 				</div>
 			</div>
 		</div>
-
 
 	</div>
 </template>

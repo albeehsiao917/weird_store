@@ -3,10 +3,11 @@ import VueRouter from 'vue-router'
 
 // import home from '@/components/HelloWorld'
 import dashboard from '@/components/Dashboard'
-import shop from '@/components/pages/Shop'
-import faq from '@/components/pages/FAQ'
-import coupon from '@/components/pages/Coupon'
-import product from '@/components/pages/Product'
+import shop from '@/components/Shop'
+import faq from '@/components/FAQ'
+import coupon from '@/components/Coupon'
+import allproducts from '@/components/AllProducts'
+import product from '@/components/Product'
 
 Vue.use(VueRouter)
 
@@ -23,9 +24,14 @@ export default new VueRouter({
       children: [
         {
           path: '',
-          name: 'shop',
+          // name: 'shop',
           component: shop,
           children: [
+            {
+              path: '',
+              name: 'allproducts',
+              component: allproducts
+            },
             {
               path: 'product/:itemId',
               name: 'product',

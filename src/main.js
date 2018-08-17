@@ -7,6 +7,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.min.css';
 import VeeValidate from 'vee-validate';
 import zhTWValidate from 'vee-validate/dist/locale/zh_TW';
+// import slider from 'vue-concise-slider/dist/module.js';
 
 //自定義套件
 import Vue from 'vue';

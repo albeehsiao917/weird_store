@@ -14,11 +14,6 @@
               <i class="fas fa-shopping-cart"></i>
               購物車
             </router-link>
-            
-            <router-link class="btn btn-outline-secondary" 
-              :to="`/product/-LJtaxsDLHZcNadGbS2K`">
-              查看更多
-            </router-link>
           </ul>
         </div>
       </div>
