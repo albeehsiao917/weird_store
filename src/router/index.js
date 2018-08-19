@@ -19,12 +19,10 @@ export default new VueRouter({
     },
     {
       path: '/',
-      // name: 'dashboard',
       component: dashboard,
       children: [
         {
           path: '',
-          // name: 'shop',
           component: shop,
           children: [
             {

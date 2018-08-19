@@ -2,12 +2,45 @@
 	<div>
 		<!-- loading -->
 		<loading :active.sync="isLoading"></loading>
+
+		<!-- carousel -->
+		<div class="row justify-content-center u-over-hidden">
+			<div class="col-md-7 col-sm-9 mx-auto mt-4">
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+				  <ol class="carousel-indicators">
+				    <li data-target="#carouselExampleIndicators" data-slide-to="0" 
+				    	class="active"></li>
+				    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+				    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+				  </ol>
+				  <div class="carousel-inner">
+				    <div class="carousel-item active">
+				      <img class="d-block w-100" src="@/image/first.jpg" alt="First slide">
+				    </div>
+				    <div class="carousel-item">
+				      <img class="d-block w-100" src="@/image/second.jpg" alt="Second slide">
+				    </div>
+				    <div class="carousel-item">
+				      <img class="d-block w-100" src="@/image/third.jpg" alt="Third slide">
+				    </div>
+				  </div>
+				  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="sr-only">Next</span>
+				  </a>
+				</div>
+			</div>
+		</div>
 		
 		<!-- content -->
 		<div class="container">
       <div class="row clearfix">
 
-				<!-- category bar -->
+				<!-- navbar -->
 				<ul class="nav nav-tabs col-12 category-bar mb-4 mt-4">
 				  <li class="nav-item">
 				    <a class="nav-link" href="#" :class="{'active': selected=='all'}"
@@ -46,7 +79,6 @@
 				      <router-link class="text-dark item-title" :to="`/product/${item.id}`">
 	            	{{ item.title }}
 	            </router-link>
-				      <p class="card-text">{{ item.content}}</p>
 				      <div class="d-flex justify-content-between align-items-baseline">
 				        <div class="item-price" v-if="!item.price"> {{ item.origin_price | currencyFilter }} 元</div>
 				        <del class="item-origin-price" v-if="item.price">原價 {{ item.origin_price | currencyFilter }} 元</del>
@@ -59,9 +91,8 @@
 				        :to="`/product/${item.id}`">
 				      	查看更多
 				      </router-link>
-				      <button type="button" class="btn btn-outline-danger ml-auto">
-				        <!-- @click="addToCart(item.id)" -->
-				        <!-- <i class="fas fa-spinner fa-spin" v-if="item.id === status.loadingItem"></i> -->
+				      <button type="button" class="btn btn-outline-danger ml-auto"
+				      	@click="addCart(item.id)">
 				        加到購物車
 				      </button>
 				    </div>
@@ -102,33 +133,20 @@
 		      vm.newProducts = response.data.products;
 		    })
 			},
-			// addToCart(id, qty = 1) {
-			// 	const api = `https://vue-course-api.hexschool.io/api/albeehsiao/cart`;
-		 //    const vm = this;
-		 //    let cart = {
-		 //    	product_id: id,
-		 //    	qty
-		 //    }
-		 //    vm.status.loadingItem = id;
-		 //    this.$http.post(api, {data: cart}).then((response) => {
-		 //      console.log(response.data);
-		 //      $('#productModal').modal('hide');
-		 //      vm.status.loadingItem = '';
-		 //      // vm.getCart();
-		 //    });
-			// },
-
-			// getProduct(id) { //取的單一商品
-			// 	const api = `https://vue-course-api.hexschool.io/api/albeehsiao/product/${id}`;
-		 //    const vm = this;
-		 //    vm.status.loadingItem = id;
-		 //    this.$http.get(api).then((response) => {
-		 //      console.log(response.data);
-		 //      vm.product = response.data.product;
-		 //      $('#productModal').modal('show');
-		 //      vm.status.loadingItem = '';
-		 //    });
-			// },
+			addCart(id, qty = 1) {
+				// const vm = this;
+				// const api = `https://vue-course-api.hexschool.io/api/albeehsiao/cart`;
+		  //   let cart = {
+		  //   	product_id: id,
+		  //   	qty
+		  //   }
+		  //   vm.isLoading = true;
+		  //   this.$http.post(api, {data: cart}).then((response) => {
+		  //     console.log(response.data);
+		  //     vm.isLoading = false;
+		  //   });
+		  	this.$emit('allproductsaddcart', id, qty);
+			},
 			
 			// getCart() {
 			// 	const api = `https://vue-course-api.hexschool.io/api/albeehsiao/cart`;
@@ -198,6 +216,9 @@
 		},
 		created() {
 			this.getProducts();
+			// this.$('.carousel').carousel({
+			//   interval: 3000
+			// });
 			// this.getCart();
 		},
 		computed: {
