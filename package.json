@@ -16,7 +16,8 @@
     "vue-axios": "^2.1.3",
     "vue-concise-slider": "^2.4.8",
     "vue-loading-overlay": "^2.2.1",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue2-google-maps": "^0.10.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.10",

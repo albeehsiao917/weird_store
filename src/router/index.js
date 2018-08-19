@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// import home from '@/components/HelloWorld'
 import dashboard from '@/components/Dashboard'
 import shop from '@/components/Shop'
-import faq from '@/components/FAQ'
+import about from '@/components/About'
 import coupon from '@/components/Coupon'
 import allproducts from '@/components/AllProducts'
 import product from '@/components/Product'
+import ordercheck from '@/components/OrderCheck'
 
 Vue.use(VueRouter)
 
@@ -38,14 +38,19 @@ export default new VueRouter({
           ]
         },
         {
-          path: 'faq',
-          name: 'faq',
-          component: faq
+          path: 'about',
+          name: 'about',
+          component: about
         },
         {
           path: 'coupon',
           name: 'coupon',
           component: coupon
+        },
+        {
+          path: 'ordercheck',
+          name: 'ordercheck',
+          component: ordercheck
         }
       ]
     }

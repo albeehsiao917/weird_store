@@ -10,7 +10,7 @@
             <ul class="clearfix">
               <router-link class="store-name" to="/">Weird Store</router-link>
               <router-link to="/">購物</router-link>
-              <router-link to="/faq">FAQ</router-link>
+              <router-link to="/about">關於</router-link>
               <router-link to="/coupon">優惠券</router-link>
             </ul>
           </div>
@@ -25,6 +25,9 @@
 
       </div>
     </div>
+
+    <!-- alert -->
+    <Alert></Alert>
 
     <!-- cart -->
     <div class="card cart-box" style="width: 320px;" v-if="isCartShow" @blur="isCartShow = false">
@@ -63,7 +66,7 @@
           <div class="text-muted text-nowrap mr-3">
             總計 <strong>{{cart.final_total | currencyFilter}}</strong> 元
           </div>
-          <router-link to="/cart" class="btn btn-primary">
+          <router-link to="/ordercheck" class="btn btn-primary" :ordercart="cart">
             結帳去
           </router-link>
         </div>
@@ -79,7 +82,6 @@
     <div id="footer">
       <div class="container clearfix">
         <div class="copyright">
-          <!-- <div class="store-name">Weird Store</div> -->
           <div class="title">Stay weird, stay different</div>
           <div class="subtitle">&copy; 2018. by Albee Hsiao</div>
         </div>
@@ -104,6 +106,7 @@
 </template>
 
 <script>
+  import Alert from './Alert';
   export default {
     data() {
       return {
@@ -118,7 +121,7 @@
         const vm = this;
         vm.isLoading = true;
         this.$http.get(api).then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           vm.cart = response.data.data;
           vm.isLoading = false;
         });
@@ -142,6 +145,11 @@
         }
         this.$http.post(api, {data: cart}).then((response) => {
           console.log(response.data);
+          if(response.data.success) {
+            this.$bus.$emit('messsage:push', response.data.message, 'success');
+          }else {
+            this.$bus.$emit('messsage:push', response.data.message, 'danger');
+          }
         });
       }
     },
@@ -152,6 +160,9 @@
       cart: function() {
         this.getCart();
       }
+    },
+    components: {
+      Alert
     }
   }
 </script>

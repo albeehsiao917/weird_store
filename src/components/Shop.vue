@@ -2,8 +2,6 @@
 	<div>		
 		<!-- product -->
 		<router-view @productaddcart="addcart" @allproductsaddcart="addcart"></router-view>
-
-		<!-- <div></div> -->
 	</div>
 </template>
 
