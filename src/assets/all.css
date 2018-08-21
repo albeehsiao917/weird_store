@@ -115,6 +115,17 @@ a {
 		padding: 0 40px 0 0;
 	}
 }
+.store-name {
+	display:inline-block;
+	text-decoration: none;
+  font-size: 36px;
+  background: -webkit-linear-gradient(45deg, #E86F3D, #FF556C, #FFA048);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*cart*/
 .cart {
 	position: relative;
 	float: right;
@@ -129,24 +140,13 @@ a {
 		}
 	}
 }
-.store-name {
-	display:inline-block;
-	text-decoration: none;
-  font-size: 36px;
-  background: -webkit-linear-gradient(45deg, #E86F3D, #FF556C, #FFA048);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/*cart*/
 .cart-box {
   position: fixed;
   z-index: 500;
   right: 20px;
   top: 70px;
-  /*height: 300px;*/
-  /*overflow: scroll;*/
+  max-height: 500px;
+  overflow: scroll;
 }
 .card-title {
 	letter-spacing: 1px;
@@ -166,6 +166,11 @@ a {
 		height: 2px;
 		background-color: lightgrey;
 	}
+	&:hover {
+		span {
+			background-color: $text-color-hover;
+		}
+	}
 }
 .card-close span:first-child{
 	transform: translate(-50%, -50%) rotate(45deg);
@@ -175,6 +180,9 @@ a {
 }
 .card-content {
 	font-size: 12px;
+}
+.cartnothing {
+	letter-spacing: 1px;
 }
 
 /*dashboard footer*/
@@ -194,24 +202,28 @@ a {
 	.social-media {
 	  float: right;
 		  li {
-		  float: left;
-		  a {
-		  	display: inline-block;
-			  margin: 5px;
-			  border: 1px solid $text-color-black;
-			  -webkit-border-radius: 20px;
-			  -moz-border-radius: 20px;
-			  border-radius: 20px;
-			  width: 40px;
-			  height: 40px;
-			  color: $text-color-black;
-			  text-decoration: none;
-			  text-align: center;
-			  line-height: 40px;
-		  }
+		  	float: left;
+			  a {
+			  	display: inline-block;
+				  margin: 5px;
+				  border: 1px solid $text-color-black;
+				  -webkit-border-radius: 20px;
+				  -moz-border-radius: 20px;
+				  border-radius: 20px;
+				  width: 40px;
+				  height: 40px;
+				  color: $text-color-black;
+				  text-decoration: none;
+				  text-align: center;
+				  line-height: 40px;
+				  &:hover {
+						color: $text-color-hover;
+						border: 1px solid $text-color-hover;
+					}
+			  }
+			}
 		}
 	}
-}
 
 
 /*dashboard go-top*/
@@ -226,6 +238,7 @@ a {
 	line-height: 40px;
 	text-decoration: none;
 	color: $text-color-white;
+	cursor: pointer;
 }
 
 /*card*/

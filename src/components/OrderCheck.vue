@@ -37,7 +37,7 @@
 							</thead>
 
 							<tbody>
-								<tr v-for="(item, key) in cart.carts" :key='item.id' v-if="cart.carts">
+								<tr v-for="(item, key) in ordercart.carts" :key='item.id' v-if="ordercart.carts">
 									<td class="align-middle">
 				            <button type="button" class="btn btn-outline-danger btn-sm" 
 				            	@click='delCart(item.id)'>
@@ -61,19 +61,19 @@
 							</tbody>
 
 							<tfoot>
-				        <tr v-if="cart.final_total == cart.total">
+				        <tr v-if="ordercart.final_total == ordercart.total">
 				        	<td></td>
 				        	<td></td>
 				        	<td></td>
 				          <td>總計</td>
-				          <td>{{ cart.total | currencyFilter }}</td>
+				          <td>{{ ordercart.total | currencyFilter }}</td>
 				        </tr>
-				        <tr v-if="cart.final_total !== cart.total">
+				        <tr v-if="ordercart.final_total !== ordercart.total">
 				        	<td></td>
 				        	<td></td>
 				        	<td></td>
 		              <td class=" text-success">折扣價</td>
-		              <td class=" text-success">{{ cart.final_total | currencyFilter }}</td>
+		              <td class=" text-success">{{ ordercart.final_total | currencyFilter }}</td>
 		            </tr>
 				      </tfoot>
 						</table>
@@ -167,7 +167,7 @@
 								</tr>	
 							</thead>
 							<tbody>
-								<tr v-for="(item, key) in cart.carts" :key='item.id' v-if="cart.carts">
+								<tr v-for="(item, key) in ordercart.carts" :key='item.id' v-if="ordercart.carts">
 				          <td>
 				          	<img class="img-fluid" style="width:100px" 
 				          		:src="item.product.imageUrl" alt="商品圖片">
@@ -183,17 +183,17 @@
 								</tr>
 							</tbody>
 							<tfoot>
-				        <tr v-if="cart.final_total == cart.total">
+				        <tr v-if="ordercart.final_total == ordercart.total">
 				        	<td></td>
 				        	<td></td>
 				          <td>總計</td>
-				          <td>{{ cart.total | currencyFilter }}</td>
+				          <td>{{ ordercart.total | currencyFilter }}</td>
 				        </tr>
-				        <tr v-if="cart.final_total !== cart.total">
+				        <tr v-if="ordercart.final_total !== ordercart.total">
 				        	<td></td>
 				        	<td></td>
 		              <td class=" text-success">折扣價</td>
-		              <td class=" text-success">{{ cart.final_total | currencyFilter }}</td>
+		              <td class=" text-success">{{ ordercart.final_total | currencyFilter }}</td>
 		            </tr>
 				      </tfoot>
 						</table>
@@ -232,7 +232,7 @@
 					<div class="col-6">
 						<router-link to="/" class="btn btn-secondary" v-if="step == 1">繼續購物</router-link>
 						<button type="button" class="btn btn-secondary d-block" 
-							v-if="step == 2" @click="prevStep">
+							v-if="step == 2 || step == 3" @click="prevStep">
 							上一步
 						</button>
 					</div>
@@ -282,20 +282,19 @@ import $ from 'jquery';
 					message: ""
 				},
 				step: 1,
-				// ordercart: {}
 			}
 		},
 		methods: {
-			getCart() {
-				const api = `https://vue-course-api.hexschool.io/api/albeehsiao/cart`;
-		    const vm = this;
-		    vm.isLoading = true;
-		    this.$http.get(api).then((response) => {
-		      console.log(response.data);
-		      vm.cart = response.data.data;
-		      vm.isLoading = false;
-		    });
-			},
+			// getCart() {
+			// 	const api = `https://vue-course-api.hexschool.io/api/albeehsiao/cart`;
+		 //    const vm = this;
+		 //    vm.isLoading = true;
+		 //    this.$http.get(api).then((response) => {
+		 //      console.log(response.data);
+		 //      vm.cart = response.data.data;
+		 //      vm.isLoading = false;
+		 //    });
+			// },
 			addCouponCode() {
 		    const vm = this;
 				const api = `https://vue-course-api.hexschool.io/api/albeehsiao/coupon`;
@@ -307,7 +306,7 @@ import $ from 'jquery';
 		      console.log(response.data);
 		      if(response.data.success) {
 		      	vm.isLoading = false;
-		      	vm.getCart();
+		      	// vm.getCart();
 		      }else {
 		      	vm.isLoading = false;
 		      	this.$bus.$emit('messsage:push', response.data.message, 'danger');
@@ -319,22 +318,16 @@ import $ from 'jquery';
 		    const vm = this;
 				const api = `https://vue-course-api.hexschool.io/api/albeehsiao/order`;
 		    const order = vm.form;
-	      this.$validator.validate().then((result) => {
-	        if(result) {
-	          this.$http.post(api, {data: order}).then((response) => {		      
-				      if(response.data.success) {
-				      	vm.isLoading = false;
-				      	this.$bus.$emit('messsage:push', response.data.message, 'success');
-				      	vm.$router.push('/');
-				      }else {
-				      	vm.isLoading = false;
-				      	this.$bus.$emit('messsage:push', response.data.message, 'danger');
-				      };
-				    });
-	        }else {
-	        	console.log('欄位不完整');
-	        };
-	      });
+        this.$http.post(api, {data: order}).then((response) => {		      
+		      if(response.data.success) {
+		      	vm.isLoading = false;
+		      	this.$bus.$emit('messsage:push', response.data.message, 'success');
+		      	vm.$router.push('/');
+		      }else {
+		      	vm.isLoading = false;
+		      	this.$bus.$emit('messsage:push', response.data.message, 'danger');
+		      };
+		    });
 			},
 			stepChange() {
 				document.body.scrollTop = 0;
@@ -343,8 +336,16 @@ import $ from 'jquery';
 				if(vm.step == 1) {
 					vm.step = 2;
 				}else if(vm.step == 2) {
-					vm.step = 3;
-				}
+					console.log('step=2');
+					this.$validator.validate().then((result) => {
+						if(result) {
+							console.log('validate result: ',result);
+							vm.step = 3;
+						}else {
+							this.$bus.$emit('messsage:push', '請填寫完整個人資料', 'danger');
+						};
+					});
+				};
 			},
 			prevStep() {
 				document.body.scrollTop = 0;
@@ -352,6 +353,8 @@ import $ from 'jquery';
 				let vm = this;
 				if(vm.step == 2) {
 					vm.step = 1;
+				}else if(vm.step == 3) {
+					vm.step = 2;
 				}
 			},
 			delCart(id) {
@@ -361,12 +364,12 @@ import $ from 'jquery';
         this.$http.delete(api).then((response) => {
           console.log(response.data);
           vm.isLoading = false;
-          vm.getCart();
+          // vm.getCart();
         });
       },
 		},
 		created() {
-			this.getCart();
+			// this.getCart();
 		}
 	}
 </script>

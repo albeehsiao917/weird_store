@@ -19,7 +19,7 @@
 
         <div class="col-2 cart">
           <a href="" @click.prevent="isCartShow = !isCartShow">
-            <i class="fas fa-shopping-cart"></i>購物車
+            <i class="fas fa-shopping-cart"></i> 購物車
           </a>
         </div>
 
@@ -43,7 +43,7 @@
         </div>
         <table class="table">
           <tbody>
-            <tr v-for="(item, key) in cart.carts" :key='item.id' v-if="cart.carts">
+            <tr v-for="(item, key) in cart.carts" :key='item.id' v-if="isCartItem">
               <td class="align-middle">
                 <button type="button" class="btn btn-outline-danger btn-sm" 
                   @click='delCart(item.id)'>
@@ -60,22 +60,33 @@
                   {{ item.total | currencyFilter}}
               </td>
             </tr>
+            <div class="cartnothing" v-if="!isCartItem">購物車還沒有東西喔~</div>
           </tbody>
         </table>
-        <div class="d-flex justify-content-between align-items-baseline mt-4">
+
+        <div class="d-flex justify-content-between align-items-baseline mt-4" 
+          v-if="isCartItem">
           <div class="text-muted text-nowrap mr-3">
             總計 <strong>{{cart.final_total | currencyFilter}}</strong> 元
           </div>
-          <router-link to="/ordercheck" class="btn btn-primary" :ordercart="cart">
+          <router-link to="/ordercheck" class="btn btn-primary">
             結帳去
           </router-link>
         </div>
+
+        <div class="mt-4" 
+          v-if="!isCartItem">
+          <button type="button" class="btn btn-danger d-block" @click="isCartShow = false">
+            繼續購物
+          </button>
+        </div>
+
       </div>
     </div>
 
     <!-- content -->
     <div id="content">
-        <router-view @shopaddcart="addcart"></router-view>
+        <router-view @shopaddcart="addcart" :ordercart="cart"></router-view>
     </div>
 
     <!-- footer -->
@@ -100,7 +111,7 @@
     </div>
 
     <!-- go top -->
-    <a href="#header" id="go-top"><i class="fas fa-chevron-up"></i></a>
+    <div id="go-top" @click.prevent="gotop"><i class="fas fa-chevron-up"></i></div>
 
   </div>
 </template>
@@ -112,7 +123,8 @@
       return {
         cart: {},
         isLoading: false,
-        isCartShow: false
+        isCartShow: false,
+        isCartItem: false
       }
     },
     methods: {
@@ -124,6 +136,11 @@
           // console.log(response.data);
           vm.cart = response.data.data;
           vm.isLoading = false;
+          if(vm.cart.carts.length == 0) {
+            vm.isCartItem = false;
+          }else {
+            vm.isCartItem = true;
+          };
         });
       },
       delCart(id) {
@@ -151,6 +168,10 @@
             this.$bus.$emit('messsage:push', response.data.message, 'danger');
           }
         });
+      },
+      gotop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
       }
     },
     created() {
