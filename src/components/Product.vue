@@ -8,7 +8,7 @@
       <div class="row clearfix">
 
       	<div class="product">
-      		<div class="col-8">
+      		<div class="u-col-8 mb-4">
 						<!-- carousel -->
 						<div class="row justify-content-center u-over-hidden">
 							<div id="carouselExampleIndicators" class="carousel slide" 
@@ -63,7 +63,7 @@
 						</div>
 					</div>
 
-					<div class="col-4">
+					<div class="u-col-4">
 						<!-- product info -->
 						<div class="item">
 							<div class="item-titile">{{product.title}}</div>
@@ -129,7 +129,7 @@
 					${vm.itemId}`;
 		    vm.isLoading = true;
 		    this.$http.get(api).then((response) => {
-		      console.log(response.data);
+		      // console.log(response.data);
 		      vm.product = response.data.product;
 		      vm.isLoading = false;
 		      vm.product.num = 0;
@@ -146,3 +146,138 @@
 		}
 	}
 </script>
+
+<style lang="scss" scoped>
+	/*global*/
+	$text-color-black: #333;
+	$text-color-gray: #7e7e7e;
+	$text-color-white: #f5f5f5;
+	$text-color-hover: #0056b3;
+	$font-size: 16px;
+
+	* {
+	  position: relative;
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	  box-sizing: border-box;
+	  font-family: 'Open Sans', 'Barlow Condensed', sans-serif;
+	}
+	body {
+	  font-size: $font-size;
+	  font-weight: 400;
+	  -webkit-font-smoothing: antialiased;
+	  -moz-font-smoothing: antialiased;
+	}
+	img {
+	  display: block;
+	}
+	ul {
+	  margin: 0;
+	  padding-left: 0;
+	}
+	li {
+	  list-style-type: none;
+	}
+	p {
+	  color: $text-color-gray;
+	  line-height: 30px;
+	}
+	a {
+	  color: $text-color-black;
+	  text-decoration: none;
+	}
+	.container {
+	  display: block;
+	  max-width: 1170px;
+	  margin: 0 auto;
+	}
+	.clearfix:after, .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+	.row {
+	  margin: 0 -10px;
+	}
+	.u-col-2, .u-col-4, .u-col-6, .u-col-8, .u-col-10, .u-col-12 {
+	  float: left;
+	  padding: 0 30px;
+	}
+	.u-col-2 {
+		width: 16.66667%;
+	}
+	.u-col-4 {
+		width: 33.33333%;
+	}
+	.u-col-6 {
+		width: 50%;
+	}
+	.u-col-8 {
+		width: 66.66667%;
+	}
+	.u-col-10 {
+		width: 83.33333%;
+	}
+	.u-col-12 {
+		width: 100%;
+	}
+	.button {
+	  display: inline-block;
+	  padding: 15px 30px;
+	  margin-top: 30px;
+	  border: none;
+	  background: $text-color-white;
+	  color: $text-color-gray;
+	  text-transform: uppercase;
+	  text-decoration: none;
+	  font-size: $font-size;
+	}
+
+	/*product*/
+	.product {
+	  padding: 50px 0;
+	}
+
+	/*carousel*/
+	.u-over-hidden {
+	  overflow: hidden;
+	}
+	
+	// product info
+  .item-title, .item-price{
+    font-size: 1rem;
+  }
+  .item-origin-price {
+    font-size: 0.8rem;
+  }
+  .item-sale {
+    font-size: 1.2rem;
+    color: #dc3545;
+  }
+  .item-description {
+    height: 250px;
+    overflow: scroll;
+    line-height: 30px;
+  }
+
+	@media (max-width: 1024px) { 
+	  .container {
+	    max-width: 760px; 
+	  }
+	  .u-col-4, .u-col-8 {
+			width: 100%;
+		}
+		.item-description {
+	    height: auto;
+	    overflow: scroll;
+	    line-height: 30px;
+	  }
+	}
+	
+	@media (max-width: 760px) { 
+	  .container {
+	    max-width: 320px; 
+	  }
+	}
+
+</style>

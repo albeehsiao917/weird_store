@@ -41,7 +41,7 @@
       <div class="row clearfix">
 
 				<!-- navbar -->
-				<ul class="nav nav-tabs col-12 category-bar mb-4 mt-4">
+				<ul class="nav nav-tabs u-col-12 category-bar mb-4 mt-4">
 				  <li class="nav-item">
 				    <a class="nav-link" href="#" :class="{'active': selected=='all'}"
 				    	@click.prevent="selected='all'; productCategory">
@@ -63,7 +63,7 @@
 				</ul>
 				
 				<!-- card -->
-        <div class="col-4 mb-4" v-for='(item, key) in newProducts' :key='item.id'>
+        <div class="u-col-4 mb-4" v-for='(item, key) in newProducts' :key='item.id'>
 				  <div class="card border-0 shadow-sm">
 						
 						<div style="height: 150px; background-size: cover; 
@@ -127,7 +127,7 @@
 		    const vm = this;
 		    vm.isLoading = true;
 		    this.$http.get(api).then((response) => {
-		      console.log(response.data);
+		      // console.log(response.data);
 		      vm.isLoading = false;
 		      vm.products = response.data.products;
 		      vm.newProducts = response.data.products;
@@ -158,3 +158,156 @@
 		}
 	}
 </script>
+
+<style lang="scss" scoped>
+	/*global*/
+	$text-color-black: #333;
+	$text-color-gray: #7e7e7e;
+	$text-color-white: #f5f5f5;
+	$text-color-hover: #0056b3;
+	$font-size: 16px;
+
+	* {
+	  position: relative;
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	  box-sizing: border-box;
+	  font-family: 'Open Sans', 'Barlow Condensed', sans-serif;
+	}
+	body {
+	  font-size: $font-size;
+	  font-weight: 400;
+	  -webkit-font-smoothing: antialiased;
+	  -moz-font-smoothing: antialiased;
+	}
+	img {
+	  display: block;
+	}
+	ul {
+	  margin: 0;
+	  padding-left: 0;
+	}
+	li {
+	  list-style-type: none;
+	}
+	p {
+	  color: $text-color-gray;
+	  line-height: 30px;
+	}
+	a {
+	  color: $text-color-black;
+	  text-decoration: none;
+	}
+	.container {
+	  display: block;
+	  max-width: 1170px;
+	  margin: 0 auto;
+	}
+	.clearfix:after, .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+	.row {
+	  margin: 0 -10px;
+	}
+	.u-col-4, .u-col-12 {
+	  float: left;
+	  padding: 0 30px;
+	}
+	.u-col-4 {
+		width: 33.33333%;
+	}
+	.u-col-12 {
+		width: 100%;
+	}
+	.button {
+	  display: inline-block;
+	  padding: 15px 30px;
+	  margin-top: 30px;
+	  border: none;
+	  background: $text-color-white;
+	  color: $text-color-gray;
+	  text-transform: uppercase;
+	  text-decoration: none;
+	  font-size: $font-size;
+	}
+	
+
+	/*carousel*/
+	.u-over-hidden {
+	  overflow: hidden;
+	}
+
+
+	/*card*/
+	.thumbnail {
+	  position: relative;
+	  img {
+	    width: 100%;
+	    height: auto;
+	  }
+	  .cover {
+	    position: absolute;
+	    background: rgba(0,0,0,0.8);
+	    border: 2px solid rgba(0,0,0,0.5);
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    text-align: center;
+	    opacity: 0;
+	    transition: all .2s;
+	    text-decoration: none;
+	    &:hover {
+	      opacity: 1;
+	    }
+	    .cover-btn {
+	      position: absolute;
+	      padding: 5px 10px;
+	      border: 1px solid $text-color-white;
+	      top: 50%;
+	      left: 50%;
+	      transform: translate(-50%,-50%);
+	      font-size: $font-size;
+	      color: $text-color-white;
+	      border-radius: 5px;
+	    }
+	  }
+	}
+	.item-title, .item-price{
+    font-size: 1rem;
+  }
+  .item-origin-price {
+    font-size: 0.8rem;
+  }
+  .item-sale {
+    font-size: 1.2rem;
+    color: #dc3545;
+  }
+
+
+	@media (max-width: 1024px) { 
+	  .container {
+	    max-width: 760px; 
+	  }
+	  .u-col-4 {
+	    width: 50%;
+	  }
+	  .u-col-12 {
+	  	width: 100%;
+	  }
+	}
+	
+	@media (max-width: 760px) { 
+	  .container {
+	    max-width: 320px; 
+	  }
+	  .u-col-4, .u-col-12 {
+	  	width: 100%;
+	  }
+	  .nav, .btn {
+	    font-size: 0.8rem;
+	  }
+	}
+</style>

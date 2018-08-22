@@ -1,8 +1,8 @@
 <template>
 	<div>
-			<div class="container about">
+			<div class="container about my-4">
       	<div class="row clearfix">
-						<div class="col-12 brand">
+						<div class="u-col-12 brand">
       				<h6>品牌精神</h6>
       				<p class="title">"werid store"</p>
       				<p class="point">Lorem ipsum dolor sit adipisicing elit. <br>
@@ -18,7 +18,7 @@
 			<div class="container contact">
 				<div class="row clearfix">
 
-					<div class="col-4 contact-info">
+					<div class="u-col-4 contact-info mb-4">
 						<h6>聯絡資訊</h6>
 						<div class="info">
 							<div class="address">
@@ -37,7 +37,7 @@
             
     			</div>
 
-    			<div class="col-8 google-map">
+    			<div class="u-col-8 google-map mb-4">
     				<GmapMap :center="{lat:25.0339639, lng:121.5622835}" 
     					:zoom="15" map-type-id="terrain"
 						  style="width: 100%; height: 500px">
@@ -56,19 +56,125 @@
 <script>
 	export default {
 		data() {
-			return {
-			}
-		},
-		methods: {
-			
+			return {}
 		}
 	}
 </script>
 
-<!-- var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 25.0786104, lng: 121.5828413}, //中心點經緯度
-    zoom: 17 //地圖大小
-  });
-} -->
+<style lang="scss" scoped>
+	/*global*/
+	$text-color-black: #333;
+	$text-color-gray: #7e7e7e;
+	$text-color-white: #f5f5f5;
+	$text-color-hover: #0056b3;
+	$font-size: 16px;
+
+	* {
+	  position: relative;
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	  box-sizing: border-box;
+	  font-family: 'Open Sans', 'Barlow Condensed', sans-serif;
+	}
+	body {
+	  font-size: $font-size;
+	  font-weight: 400;
+	  -webkit-font-smoothing: antialiased;
+	  -moz-font-smoothing: antialiased;
+	}
+	img {
+	  display: block;
+	}
+	ul {
+	  margin: 0;
+	  padding-left: 0;
+	}
+	li {
+	  list-style-type: none;
+	}
+	p {
+	  color: $text-color-gray;
+	  line-height: 30px;
+	}
+	a {
+	  color: $text-color-black;
+	  text-decoration: none;
+	}
+	.container {
+	  display: block;
+	  max-width: 1170px;
+	  margin: 0 auto;
+	}
+	.clearfix:after, .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+	.row {
+	  margin: 0 -10px;
+	}
+	.u-col-4, .u-col-8, .u-col-12 {
+	  float: left;
+	  padding: 0 30px;
+	}
+	.u-col-4 {
+		width: 33.33333%;
+	}
+	.u-col-8 {
+		width: 66.66667%;
+	}
+	.u-col-12 {
+		width: 100%;
+	}
+	.button {
+	  display: inline-block;
+	  padding: 15px 30px;
+	  margin-top: 30px;
+	  border: none;
+	  background: $text-color-white;
+	  color: $text-color-gray;
+	  text-transform: uppercase;
+	  text-decoration: none;
+	  font-size: $font-size;
+	}
+	
+
+	/*about*/
+	.about, .contact-info {
+	  h6 {
+	    padding-bottom: 1rem
+	  }
+	}
+	.brand{
+	  margin: 30px 0;
+	  letter-spacing: 1px;
+	  .title {
+	    text-transform: uppercase;
+	  }
+	}
+	.info {
+	  letter-spacing: 1px;
+	  color: $text-color-gray;
+	  line-height: 30px;
+	  a {
+	    color: $text-color-gray;
+	    text-decoration: none;
+	  }
+	}
+
+
+	@media (max-width: 1024px) { 
+	  .container {
+	    max-width: 760px; 
+	  }
+	  .u-col-4, .u-col-8, .u-col-12 {
+	  	width: 100%;
+	  }
+	}
+	
+	@media (max-width: 760px) { 
+	  .container {
+	    max-width: 320px; 
+	  }
+	}
+</style>

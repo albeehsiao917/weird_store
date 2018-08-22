@@ -3,22 +3,19 @@
 		<!-- loading -->
 		<loading :active.sync="isLoading"></loading>
 
-		<div class="container">
+		<div class="container game">
       <div class="row clearfix justify-content-center">
-
-				
-				<div style="width: 50%;">
-
+				<div>
 					<!-- game start -->
 					<div class="game-start">
-						<h5 class="game-title my-4">(❁´ω`❁)~領取優惠券~(❁´ω`❁)</h5>
-				    <img class="img-fluid" 
-				    	src="@/image/coupon-background.jpg" alt="">
+						<h5 class="game-title my-4">(❁´ω`❁)~ 領取優惠券 ~(❁´ω`❁)</h5>
+				    <!-- <img class="img-fluid" 
+				    	src="@/image/coupon-background.jpg" alt=""> -->
 				    <div class="desc">
-							只要在<span class="chance"><b>三次機會內</b></span>猜對了他的年齡，<br>
+							只要在<span class="chance">三次機會內</span>猜對了他的年齡，<br>
 							就會提供你一個折扣代碼喔～！<br>
 						</div>
-						<button class="btn btn-primary d-block mx-auto my-2 btn-lg" 
+						<button class="btn btn-secondary d-block mx-auto my-2 btn-lg" 
 							@click="isShow = true" v-if="!isShow">
 							給我折扣！
 						</button>
@@ -26,7 +23,7 @@
 					
 					<!-- card -->
 					<div class="card text-dark bg-light d-block mx-auto my-2 text-center"
-						style="width: 50%;" v-if="isShow">
+						v-if="isShow">
 					  <div class="card-body">
 					    <div class="card-title person-from">
 					    	來自{{ person[0].location.city }}的
@@ -48,8 +45,9 @@
 				    <p class="card-text" v-if="!success">
 				    	小提示～可能介於{{ Math.floor(person[0].dob.age/10)*10 }}~{{ Math.floor((person[0].dob.age/10)+1)*10 }}之間
 				    </p>
-				    <input type="number" placeholder="猜猜看～" v-if="!success"
-				    	v-model.number="inputAge" class="text-center rounded border">
+				    <input type="number" placeholder="來吧！" v-if="!success"
+				    	v-model.number="inputAge" 
+				    	class="text-center rounded border border-secondary">
 				    <button class="btn btn-primary d-block mx-auto mt-4" 
 				    	@click.prevent="guessAge" v-if="times !== 0">
 				    	勇敢的試一試吧～
@@ -89,8 +87,8 @@
 							</router-link>
 						</div>
 					</div>
-
 				</div>
+					
 
       </div>
     </div>
@@ -135,7 +133,7 @@
 				const api = `https://randomuser.me/api/`;
 		    vm.isLoading = true;
 		    this.$http.get(api).then((response) => {
-		      console.log(response.data.results);
+		      // console.log(response.data.results);
 		      vm.isLoading = false;
 		      vm.person = response.data.results;
 		    })
@@ -165,14 +163,78 @@
 				let vm = this;
 				let num = Math.round(Math.random()*100)%(vm.coupons.length);
 				let randomCoupon = vm.coupons[num];
-				console.log(vm.coupons[num]);
+				// console.log(vm.coupons[num]);
 				return randomCoupon;
 			}
 		}
 	}
 </script>
 
-<style scope>
+<style lang="scss" scoped>
+	/*global*/
+	$text-color-black: #333;
+	$text-color-gray: #7e7e7e;
+	$text-color-white: #f5f5f5;
+	$text-color-hover: #0056b3;
+	$font-size: 16px;
+
+	* {
+	  position: relative;
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	  box-sizing: border-box;
+	  font-family: 'Open Sans', 'Barlow Condensed', sans-serif;
+	}
+	body {
+	  font-size: $font-size;
+	  font-weight: 400;
+	  -webkit-font-smoothing: antialiased;
+	  -moz-font-smoothing: antialiased;
+	}
+	img {
+	  display: block;
+	}
+	ul {
+	  margin: 0;
+	  padding-left: 0;
+	}
+	li {
+	  list-style-type: none;
+	}
+	p {
+	  color: $text-color-gray;
+	  line-height: 30px;
+	}
+	a {
+	  color: $text-color-black;
+	  text-decoration: none;
+	}
+	.container {
+	  display: block;
+	  max-width: 1170px;
+	  margin: 0 auto;
+	}
+	.clearfix:after, .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+	.row {
+	  margin: 0 -10px;
+	}
+	.button {
+	  display: inline-block;
+	  padding: 15px 30px;
+	  margin-top: 30px;
+	  border: none;
+	  background: $text-color-white;
+	  color: $text-color-gray;
+	  text-transform: uppercase;
+	  text-decoration: none;
+	  font-size: $font-size;
+	}
+	
+
 	.desc, .game-start, .guess, .game-title {
 		margin: 20px 0;
 		font-weight: normal;
@@ -182,9 +244,38 @@
 	}
 	.chance, .person-name {
 		color: #FF556C;
+		font-weight: normal;
+		letter-spacing: 1px;
 	}
 	.person-from {
 		/*letter-spacing: 1px;*/
 		text-transform: uppercase;
+	}
+	.card {
+		width: 80%;
+	}
+	.game {
+		background-image: url('../image/coupon-background.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	.card-text {
+		color: $text-color-black;
+	}
+
+
+	@media (max-width: 1024px) { 
+	  .container {
+	    max-width: 760px; 
+	  }
+	}
+	
+	@media (max-width: 760px) { 
+	  .container {
+	    max-width: 320px; 
+	  }
+	  .card {
+			width: 90%;
+		}
 	}
 </style>

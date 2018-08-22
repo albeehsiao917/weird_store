@@ -7,13 +7,13 @@
 		<div class="orderstep text-center">
 			<div class="container">
 	      <div class="row clearfix">
-					<div class="col-4">
+					<div class="u-col-4">
 	      		<span class="step" :class="{'current-step':step == 1}">1. 確認購買清單</span>
 	      	</div>
-	      	<div class="col-4">
+	      	<div class="u-col-4">
 	      		<span class="step" :class="{'current-step':step == 2}">2. 填寫個人資料</span>
 	      	</div>
-	      	<div class="col-4">
+	      	<div class="u-col-4">
 	      		<span class="step" :class="{'current-step':step == 3}">3. 確認</span>
 	      	</div>
 				</div>
@@ -24,12 +24,12 @@
 		<div class="checkorderlist" v-if="step == 1">
 			<div class="container">
 	      <div class="row clearfix">
-					<div class="col-12">
+					<div class="u-col-12">
 						<table class="table">
 							<thead>
 								<tr>
 									<th></th>
-									<th>商品圖片</th>
+									<th class="table-image">商品圖片</th>
 									<th>名稱</th>
 									<th>數量</th>
 									<th>單價</th>
@@ -44,7 +44,7 @@
 				              <i class="far fa-trash-alt"></i>
 				            </button>
 				          </td>
-				          <td>
+				          <td class="table-image">
 				          	<img class="img-fluid" style="width:100px" 
 				          		:src="item.product.imageUrl" alt="商品圖片">
 				          </td>
@@ -63,14 +63,14 @@
 							<tfoot>
 				        <tr v-if="ordercart.final_total == ordercart.total">
 				        	<td></td>
-				        	<td></td>
+				        	<td class="table-image"></td>
 				        	<td></td>
 				          <td>總計</td>
 				          <td>{{ ordercart.total | currencyFilter }}</td>
 				        </tr>
 				        <tr v-if="ordercart.final_total !== ordercart.total">
 				        	<td></td>
-				        	<td></td>
+				        	<td class="table-image"></td>
 				        	<td></td>
 		              <td class=" text-success">折扣價</td>
 		              <td class=" text-success">{{ ordercart.final_total | currencyFilter }}</td>
@@ -98,7 +98,7 @@
 		<div class="checkorderlist" v-if="step == 2">
 			<div class="container">
 	      <div class="row clearfix">
-					<div class="col-12">		
+					<div class="u-col-12">		
 		        <form @submit.prevent='createOrder'>
 							<div class="form-group">
 				        <label for="email">信箱</label>
@@ -156,11 +156,11 @@
 		<div class="done" v-if="step == 3">
 			<div class="container">
 				<div class="row clearfix">
-					<div class="col-12">
+					<div class="u-col-12">
 						<table class="table">
 							<thead>
 								<tr>
-									<th>商品圖片</th>
+									<th class="table-image">商品圖片</th>
 									<th>名稱</th>
 									<th>數量</th>
 									<th>單價</th>
@@ -168,7 +168,7 @@
 							</thead>
 							<tbody>
 								<tr v-for="(item, key) in ordercart.carts" :key='item.id' v-if="ordercart.carts">
-				          <td>
+				          <td class="table-image">
 				          	<img class="img-fluid" style="width:100px" 
 				          		:src="item.product.imageUrl" alt="商品圖片">
 				          </td>
@@ -184,13 +184,13 @@
 							</tbody>
 							<tfoot>
 				        <tr v-if="ordercart.final_total == ordercart.total">
-				        	<td></td>
+				        	<td class="table-image"></td>
 				        	<td></td>
 				          <td>總計</td>
 				          <td>{{ ordercart.total | currencyFilter }}</td>
 				        </tr>
 				        <tr v-if="ordercart.final_total !== ordercart.total">
-				        	<td></td>
+				        	<td class="table-image"></td>
 				        	<td></td>
 		              <td class=" text-success">折扣價</td>
 		              <td class=" text-success">{{ ordercart.final_total | currencyFilter }}</td>
@@ -198,25 +198,35 @@
 				      </tfoot>
 						</table>
 					</div>
-					<div class="col-12">
+					<div class="u-col-12">
+						<h6 class="personal-data-check">個人資料確認</h6>
 						<table class="table">
 							<thead>
-								<tr>
-									<th>信箱</th>
-									<th>姓名</th>
-									<th>電話</th>
-									<th>地址</th>
-									<th>留言</th>
-								</tr>	
+								
 							</thead>
 							<tbody>
-								<tr>
-				          <td class="align-middle">{{ form.user.email }}</td>
-									<td class="align-middle">{{ form.user.name }}</td>
-									<td class="align-middle">{{ form.user.tel }}</td>
-									<td class="align-middle">{{ form.user.address }}</td>
-									<td class="align-middle">{{ form.message }}</td>
-								</tr>
+								<td width="20%">
+									<tr class="table-right">信箱：</tr>
+									<hr>
+									<tr class="table-right">姓名：</tr>
+									<hr>
+									<tr class="table-right">電話：</tr>
+									<hr>
+									<tr class="table-right">地址：</tr>
+									<hr>
+									<tr class="table-right">留言：</tr>
+								</td>	
+								<td>
+				          <tr class="align-middle">{{ form.user.email }}</tr>
+				          <hr>
+									<tr class="align-middle">{{ form.user.name }}</tr>
+									<hr>
+									<tr class="align-middle">{{ form.user.tel }}</tr>
+									<hr>
+									<tr class="align-middle">{{ form.user.address }}</tr>
+									<hr>
+									<tr class="align-middle">{{ form.message }}</tr>
+								</td>
 							</tbody>
 							<tfoot></tfoot>
 						</table>
@@ -229,22 +239,18 @@
 		<div class="stepbutton">
 			<div class="container">
 				<div class="row clearfix">
-					<div class="col-6">
-						<router-link to="/" class="btn btn-secondary" v-if="step == 1">繼續購物</router-link>
+					<div class="u-col-6">
+						<router-link to="/" class="btn btn-secondary text-light" v-if="step == 1">繼續購物</router-link>
 						<button type="button" class="btn btn-secondary d-block" 
 							v-if="step == 2 || step == 3" @click="prevStep">
 							上一步
 						</button>
 					</div>
-					<div class="col-6 text-right">
+					<div class="u-col-6 check-btn">
 						
 						<button type="button" class="btn btn-primary d-block" 
-							v-if="step == 1" @click="stepChange">
-							下一步：填寫個人資料
-						</button>
-						<button type="button" class="btn btn-primary d-block" 
-							v-if="step == 2" @click="stepChange">
-							下一步：確認
+							v-if="step == 1 || step == 2 " @click="stepChange">
+							下一步
 						</button>
 						<button type="button" class="btn btn-danger d-block" 
 							v-if="step == 3" @click="createOrder">
@@ -260,7 +266,7 @@
 </template>
 
 <script>
-import $ from 'jquery';
+	import $ from 'jquery';
 	export default {
 		props: {
 			ordercart: {}
@@ -303,7 +309,7 @@ import $ from 'jquery';
 		    }
 		    vm.isLoading = true;
 		    this.$http.post(api, {data: coupon}).then((response) => {
-		      console.log(response.data);
+		      // console.log(response.data);
 		      if(response.data.success) {
 		      	vm.isLoading = false;
 		      	// vm.getCart();
@@ -336,10 +342,10 @@ import $ from 'jquery';
 				if(vm.step == 1) {
 					vm.step = 2;
 				}else if(vm.step == 2) {
-					console.log('step=2');
+					// console.log('step=2');
 					this.$validator.validate().then((result) => {
 						if(result) {
-							console.log('validate result: ',result);
+							// console.log('validate result: ',result);
 							vm.step = 3;
 						}else {
 							this.$bus.$emit('messsage:push', '請填寫完整個人資料', 'danger');
@@ -362,7 +368,7 @@ import $ from 'jquery';
         const api = `https://vue-course-api.hexschool.io/api/albeehsiao/cart/${id}`;
         vm.isLoading = true;
         this.$http.delete(api).then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           vm.isLoading = false;
           // vm.getCart();
         });
@@ -373,3 +379,170 @@ import $ from 'jquery';
 		}
 	}
 </script>
+
+<style lang="scss" scoped>
+	/*global*/
+	$text-color-black: #333;
+	$text-color-gray: #7e7e7e;
+	$text-color-white: #f5f5f5;
+	$text-color-hover: #0056b3;
+	$font-size: 16px;
+
+	* {
+	  position: relative;
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	  box-sizing: border-box;
+	  font-family: 'Open Sans', 'Barlow Condensed', sans-serif;
+	}
+	body {
+	  font-size: $font-size;
+	  font-weight: 400;
+	  -webkit-font-smoothing: antialiased;
+	  -moz-font-smoothing: antialiased;
+	}
+	img {
+	  display: block;
+	}
+	ul {
+	  margin: 0;
+	  padding-left: 0;
+	}
+	li {
+	  list-style-type: none;
+	}
+	p {
+	  color: $text-color-gray;
+	  line-height: 30px;
+	}
+	a {
+	  color: $text-color-black;
+	  text-decoration: none;
+	}
+	.container {
+	  display: block;
+	  max-width: 1170px;
+	  margin: 0 auto;
+	}
+	.clearfix:after, .row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+	.row {
+	  margin: 0 -10px;
+	}
+	.u-col-4, .u-col-12 {
+	  float: left;
+	  padding: 0 30px;
+	}
+	.u-col-6 {
+		float: left;
+		padding: 0 30px;
+		&.check-btn {
+			display: flex;
+			justify-content: flex-end;
+		}
+	}
+	.u-col-4 {
+		width: 33.33333%;
+	}
+	.u-col-6 {
+		width: 50%;
+	}
+	.u-col-12 {
+		width: 100%;
+	}
+	.button {
+	  display: inline-block;
+	  padding: 15px 30px;
+	  margin-top: 30px;
+	  border: none;
+	  background: $text-color-white;
+	  color: $text-color-gray;
+	  text-transform: uppercase;
+	  text-decoration: none;
+	  font-size: $font-size;
+	}
+	
+	
+	/*orderstep*/
+	.orderstep {
+	  padding: 50px 0;
+	}
+	.step{
+	  display: inline-block;
+	  color: $text-color-gray;
+	  font-weight: normal;
+	  border-bottom: 2px solid;
+	  border-color: transparent;
+	  padding-bottom: 2px;
+	}
+	.current-step{
+	  color: $text-color-black;
+	  border-color: $text-color-black;
+	  letter-spacing: 1px;
+	}
+
+
+	/*1.checkorderlist*/
+	.coupon {
+	  padding: 50px 0;
+	}
+
+	.table-right {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	/*stepbutton*/
+	.stepbutton {
+	  padding-bottom: 50px;
+	}
+
+
+	// table
+	.table {
+		font-size: 1rem;
+		font-weight: normal;
+  	word-break:break-all;
+	}
+	.personal-data-check {
+		text-align: center;
+	}
+
+
+	@media (max-width: 1024px) { 
+	  .container {
+	    max-width: 760px; 
+	  } 
+	}
+
+	@media (max-width: 560px) { 
+	  .container {
+	    max-width: 480px; 
+	  } 
+	  .u-col-6 {
+	  	width: 50%;
+	  }
+	  .u-col-4, .u-col-12 {
+	  	width: 100%;
+	  }
+	  .table-image {
+	  	display: none;
+	  }
+	  * {
+	  	font-size: 0.9rem;
+	  }
+
+	}
+	
+	@media (max-width: 425px) { 
+	  .container {
+	    max-width: 320px; 
+	  }
+	  * {
+	  	font-size: 0.8rem;
+	  }
+	}
+</style>

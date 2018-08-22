@@ -62,12 +62,12 @@
   };
 </script>
 
-<style scope>
+<style lang="scss" scoped>
   .message-alert {
     position: fixed;
-    max-width: 50%;
-    top: 56px;
-    right: 20px;
     z-index: 1100;
+    max-width: 50%;
+    top: 10%;
+    right: 10%;
   }
 </style>
