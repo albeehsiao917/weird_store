@@ -38,13 +38,11 @@
     			</div>
 
     			<div class="u-col-8 google-map mb-4">
-    				<GmapMap :center="{lat:25.0339639, lng:121.5622835}" 
-    					:zoom="15" map-type-id="terrain"
-						  style="width: 100%; height: 500px">
-						  <GmapMarker :key="index" v-for="(m, index) in markers"
-						    :position="m.position" :clickable="true"
-						    :draggable="true" @click="center=m.position"/>
-						</GmapMap>
+						<gmap-map ref="mymap" :center="{lat:25.0339639, lng:121.5622835}" 
+							:zoom="18" style="width: 100%; height: 500px">
+				    <gmap-marker  :position="{lat:25.0339639, lng:121.5622835}" 
+				    	:clickable="true"/>
+				  	</gmap-map>
     			</div>
 
 				</div>

@@ -28,7 +28,8 @@
                 </li>
                 <li>
                   <a href="" @click.prevent="isCartShow = !isCartShow">
-                    <i class="fas fa-shopping-cart"></i> 購物車
+                    <i class="fas fa-shopping-cart"></i> 
+                    購物車
                   </a>
                 </li>
               </ul>
@@ -37,7 +38,9 @@
 
           <div id="menu-trigger">
             <button class="menu-btn btn" @click.prevent="isMenu = !isMenu">
-              <span><i class="fas fa-bars"></i></span>
+              <span>
+                <i class="fas fa-bars"></i>
+              </span>
             </button>
           </div>
 
@@ -87,14 +90,14 @@
           <div class="text-muted text-nowrap mr-3">
             總計 <strong>{{cart.final_total | currencyFilter}}</strong> 元
           </div>
-          <router-link to="/ordercheck" class="btn btn-primary">
+          <router-link to="/ordercheck" class="btn btn-primary d-block">
             結帳去
           </router-link>
         </div>
 
-        <div class="mt-4" 
-          v-if="!isCartItem">
-          <button type="button" class="btn btn-danger d-block" @click="isCartShow = false">
+        <div class="mt-4" v-if="!isCartItem">
+          <button type="button" class="btn btn-danger d-block" 
+            @click="isCartShow = false">
             繼續購物
           </button>
         </div>
@@ -129,7 +132,9 @@
     </div>
 
     <!-- go top -->
-    <div id="go-top" @click.prevent="gotop"><i class="fas fa-chevron-up"></i></div>
+    <div id="go-top" @click.prevent="gotop">
+      <i class="fas fa-chevron-up"></i>
+    </div>
 
   </div>
 </template>
@@ -323,10 +328,7 @@
     display:inline-block;
     text-decoration: none;
     font-size: 2.2rem;
-    background: -webkit-linear-gradient(45deg, #E86F3D, #FF556C, #FFA048);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #ff556c;
   }
 
   // hamburger menu

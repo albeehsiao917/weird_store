@@ -136,7 +136,11 @@
 		    });
 			},
 			addCart(id, qty = 1) {
-				this.$emit('productaddcart', id, qty);
+				if(qty == 0) {
+					this.$bus.$emit('messsage:push', '請選擇商品數量', 'danger');
+				}else {
+					this.$emit('productaddcart', id, qty);
+				};
 			}
 		},
 		created() {
