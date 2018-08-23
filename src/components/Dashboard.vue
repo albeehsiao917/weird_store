@@ -88,9 +88,9 @@
         <div class="d-flex justify-content-between align-items-baseline mt-4" 
           v-if="isCartItem">
           <div class="text-muted text-nowrap mr-3">
-            總計 <strong>{{cart.final_total | currencyFilter}}</strong> 元
+            總計 <strong>{{ cart.final_total | currencyFilter }}</strong> 元
           </div>
-          <router-link to="/ordercheck" class="btn btn-primary d-block">
+          <router-link to="/ordercheck" class="btn btn-primary d-block text-light">
             結帳去
           </router-link>
         </div>
@@ -107,7 +107,9 @@
 
     <!-- content -->
     <div id="content">
-        <router-view @shopaddcart="addcart" :ordercart="cart"></router-view>
+        <router-view @shopaddcart="addcart" :ordercart="cart" 
+          @reloadcart="getCart">
+        </router-view>
     </div>
 
     <!-- footer -->
@@ -148,7 +150,8 @@
         isLoading: false,
         isCartShow: false,
         isCartItem: false,
-        isMenu: false
+        isMenu: false,
+        isCartChange: false
       }
     },
     methods: {
@@ -174,7 +177,7 @@
         this.$http.delete(api).then((response) => {
           // console.log(response.data);
           vm.isLoading = false;
-          vm.getCart();
+          this.getCart();
         });
       },
       addcart(id, qty) {
@@ -188,6 +191,7 @@
           // console.log(response.data);
           if(response.data.success) {
             this.$bus.$emit('messsage:push', response.data.message, 'success');
+            vm.isCartChange = true;
           }else {
             this.$bus.$emit('messsage:push', response.data.message, 'danger');
           }
@@ -202,8 +206,10 @@
       this.getCart();
     },
     watch: {
-      cart: function() {
+      isCartChange: function() {
+        let vm = this;
         this.getCart();
+        vm.isCartChange = false;
       }
     },
     components: {

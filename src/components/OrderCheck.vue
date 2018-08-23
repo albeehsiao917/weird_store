@@ -4,7 +4,7 @@
 		<loading :active.sync="isLoading"></loading>
 
 		<!-- orderstep -->
-		<div class="orderstep text-center">
+		<div class="orderstep text-center" v-if="!cartEmpty">
 			<div class="container">
 	      <div class="row clearfix">
 					<div class="u-col-4">
@@ -24,7 +24,7 @@
 		<div class="checkorderlist" v-if="step == 1">
 			<div class="container">
 	      <div class="row clearfix">
-					<div class="u-col-12">
+					<div class="u-col-12" v-if="!cartEmpty">
 						<table class="table">
 							<thead>
 								<tr>
@@ -90,9 +90,19 @@
 						</div>
 	          
 					</div>
+
+					<div class="u-col-12 ordercart-nothing" 
+						v-if="cartEmpty">
+						<div>購物車沒有東西了～～趕緊購物去吧 Σ(っ °Д °;)っ</div>
+						<router-link to="/" class="btn btn-primary text-light btn-goshopping">
+							繼續購物
+						</router-link>
+					</div>
 				</div>
 			</div>
 		</div>
+
+		
         
 		<!-- 2.checkorderinfo -->
 		<div class="checkorderlist" v-if="step == 2">
@@ -236,12 +246,12 @@
 		</div>
 
 		<!-- stepbutton -->
-		<div class="stepbutton">
+		<div class="stepbutton" v-if="!cartEmpty">
 			<div class="container">
 				<div class="row clearfix">
-					<div class="u-col-6">
-						<router-link to="/" class="btn btn-secondary text-light" v-if="step == 1">繼續購物</router-link>
-						<button type="button" class="btn btn-secondary d-block" 
+					<div class="u-col-6 prevbtn">
+						<router-link to="/" class="btn btn-outline-secondary" v-if="step == 1">繼續購物</router-link>
+						<button type="button" class="btn btn-outline-secondary d-block" 
 							v-if="step == 2 || step == 3" @click="prevStep">
 							上一步
 						</button>
@@ -288,19 +298,10 @@
 					message: ""
 				},
 				step: 1,
+				isOrdercartEmpty: false
 			}
 		},
 		methods: {
-			// getCart() {
-			// 	const api = `https://vue-course-api.hexschool.io/api/albeehsiao/cart`;
-		 //    const vm = this;
-		 //    vm.isLoading = true;
-		 //    this.$http.get(api).then((response) => {
-		 //      console.log(response.data);
-		 //      vm.cart = response.data.data;
-		 //      vm.isLoading = false;
-		 //    });
-			// },
 			addCouponCode() {
 		    const vm = this;
 				const api = `https://vue-course-api.hexschool.io/api/albeehsiao/coupon`;
@@ -370,12 +371,21 @@
         this.$http.delete(api).then((response) => {
           // console.log(response.data);
           vm.isLoading = false;
-          // vm.getCart();
+          this.$emit('reloadcart');
         });
       },
 		},
 		created() {
-			// this.getCart();
+		},
+		computed: {
+			cartEmpty() {
+				let vm = this;
+				if(vm.ordercart.carts.length == 0) {
+					return true;
+				}else {
+					return false;
+				}
+			}
 		}
 	}
 </script>
@@ -489,15 +499,30 @@
 	.coupon {
 	  padding: 50px 0;
 	}
-
 	.table-right {
 		display: flex;
 		justify-content: flex-end;
+	}
+	.ordercart-nothing {
+    margin: 1rem 0;
+    letter-spacing: 1px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+    background-image: url('../image/coupon-background.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	.btn-goshopping {
+		margin-top: 20px;
 	}
 
 	/*stepbutton*/
 	.stepbutton {
 	  padding-bottom: 50px;
+	  a {
+	  	color: #6c757d;
+	  }
 	}
 
 

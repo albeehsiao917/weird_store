@@ -9,8 +9,6 @@
 					<!-- game start -->
 					<div class="game-start">
 						<h5 class="game-title my-4">(❁´ω`❁)~ 領取優惠券 ~(❁´ω`❁)</h5>
-				    <!-- <img class="img-fluid" 
-				    	src="@/image/coupon-background.jpg" alt=""> -->
 				    <div class="desc">
 							只要在<span class="chance">三次機會內</span>猜對了他的年齡，<br>
 							就會提供你一個折扣代碼喔～！<br>
