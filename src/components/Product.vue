@@ -125,8 +125,7 @@
 		methods: {
 			getProduct() { //取的單一商品
 				const vm = this;
-				const api = `https://vue-course-api.hexschool.io/api/albeehsiao/product/
-					${vm.itemId}`;
+				const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTPATH}/product/${vm.itemId}`;
 		    vm.isLoading = true;
 		    this.$http.get(api).then((response) => {
 		      // console.log(response.data);
@@ -139,7 +138,7 @@
 				if(qty == 0) {
 					this.$bus.$emit('messsage:push', '請選擇商品數量', 'danger');
 				}else {
-					this.$emit('productaddcart', id, qty);
+					this.$store.dispatch('addToCart', { id, qty });
 				};
 			}
 		},

@@ -106,6 +106,7 @@
 </template>
 
 <script>
+	import { mapActions, mapGetters } from 'vuex';
 	import $ from 'jquery';
 	export default {
 		data() {
@@ -123,7 +124,7 @@
 		},
 		methods: {
 			getProducts() { //取得所有商品
- 				const api = `https://vue-course-api.hexschool.io/api/albeehsiao/products/all`;
+ 				const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTPATH}/products/all`;
 		    const vm = this;
 		    vm.isLoading = true;
 		    this.$http.get(api).then((response) => {
@@ -134,7 +135,7 @@
 		    })
 			},
 			addCart(id, qty = 1) {
-		  	this.$emit('allproductsaddcart', id, qty);
+		  	this.$store.dispatch('addToCart', { id, qty });
 			}
 		},
 		created() {

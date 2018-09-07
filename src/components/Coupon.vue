@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div id="coupon">
 		<!-- loading -->
 		<loading :active.sync="isLoading"></loading>
 
@@ -231,7 +231,9 @@
 	  text-decoration: none;
 	  font-size: $font-size;
 	}
-	
+	#coupon {
+		min-height: 600px;
+	}
 
 	.desc, .game-start, .guess, .game-title {
 		margin: 20px 0;

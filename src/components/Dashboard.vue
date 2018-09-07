@@ -107,9 +107,7 @@
 
     <!-- content -->
     <div id="content">
-        <router-view @shopaddcart="addcart" :ordercart="cart" 
-          @reloadcart="getCart">
-        </router-view>
+        <router-view></router-view>
     </div>
 
     <!-- footer -->
@@ -142,60 +140,22 @@
 </template>
 
 <script>
+  import { mapActions, mapGetters } from 'vuex';
   import Alert from './Alert';
   export default {
     data() {
       return {
-        cart: {},
-        isLoading: false,
         isCartShow: false,
-        isCartItem: false,
         isMenu: false,
-        isCartChange: false
       }
     },
     methods: {
-      getCart() {
-        const api = `https://vue-course-api.hexschool.io/api/albeehsiao/cart`;
-        const vm = this;
-        vm.isLoading = true;
-        this.$http.get(api).then((response) => {
-          // console.log(response.data);
-          vm.cart = response.data.data;
-          vm.isLoading = false;
-          if(vm.cart.carts.length == 0) {
-            vm.isCartItem = false;
-          }else {
-            vm.isCartItem = true;
-          };
-        });
-      },
+      ...mapActions(['getCart']),
       delCart(id) {
-        const vm = this;
-        const api = `https://vue-course-api.hexschool.io/api/albeehsiao/cart/${id}`;
-        vm.isLoading = true;
-        this.$http.delete(api).then((response) => {
-          // console.log(response.data);
-          vm.isLoading = false;
-          this.getCart();
-        });
+        this.$store.dispatch('delCart', id);
       },
       addcart(id, qty) {
-        const vm = this;
-        const api = `https://vue-course-api.hexschool.io/api/albeehsiao/cart`;
-        let cart = {
-         product_id: id,
-         qty
-        }
-        this.$http.post(api, {data: cart}).then((response) => {
-          // console.log(response.data);
-          if(response.data.success) {
-            this.$bus.$emit('messsage:push', response.data.message, 'success');
-            vm.isCartChange = true;
-          }else {
-            this.$bus.$emit('messsage:push', response.data.message, 'danger');
-          }
-        });
+        this.$store.dispatch('addToCart', { id, qty }); //傳入多個參數改用物件的形式傳入
       },
       gotop() {
         document.body.scrollTop = 0;
@@ -205,16 +165,12 @@
     created() {
       this.getCart();
     },
-    watch: {
-      isCartChange: function() {
-        let vm = this;
-        this.getCart();
-        vm.isCartChange = false;
-      }
-    },
     components: {
       Alert
-    }
+    },
+    computed: {
+      ...mapGetters(['cart', 'isLoading', 'isCartItem'])
+    },
   }
 </script>
 

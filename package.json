@@ -23,7 +23,8 @@
     "vue-concise-slider": "^2.4.8",
     "vue-loading-overlay": "^2.2.1",
     "vue-router": "^3.0.1",
-    "vue2-google-maps": "^0.10.2"
+    "vue2-google-maps": "^0.10.2",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.10",
