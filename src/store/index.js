@@ -101,7 +101,6 @@ export default new Vuex.Store({
     removeMessageWithTiming(context, timestamp) { //每5秒過後自動移除訊息
       setTimeout(() => {
         context.state.messages.forEach((item, i) => {
-          console.log(timestamp, item, i);
           if (item.timestamp === timestamp) {
             context.commit('SPLICEMESSAGES', { i });
           }
